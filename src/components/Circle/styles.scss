@@ -1,0 +1,23 @@
+.container {
+  position: absolute;
+  left: 50%;
+  top: 44.4444vh;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+
+  .outer-circle {
+    position: relative;
+    width: 530px;
+    height: 530px;
+    border-radius: 50%;
+    border: 1px solid #42567a33;
+  }
+
+  .small-circle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: #42567a;
+    border-radius: 50%;
+  }
+}

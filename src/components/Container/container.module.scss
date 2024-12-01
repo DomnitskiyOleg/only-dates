@@ -1,0 +1,40 @@
+.square {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  // padding-left: 80px;
+  max-width: 1440px;
+  margin-left: 16.6666vw;
+  border: 1px solid #42567a33;
+  border-top: none;
+  border-bottom: none;
+  height: 100vh;
+
+  .line {
+    position: absolute;
+    background-color: #42567a33;
+  }
+
+  .horizontal {
+    top: 44.4444vh;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    transform: translateY(-50%);
+  }
+
+  .vertical {
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+  .content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: end;
+    padding-bottom: 5.4166vw;
+  }
+}
