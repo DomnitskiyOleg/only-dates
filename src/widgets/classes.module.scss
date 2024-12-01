@@ -1,0 +1,34 @@
+.description {
+  font-size: 20px;
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 30px;
+}
+
+.year {
+  color: #3877ee;
+  font-size: 25px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 30px;
+}
+
+.navigationHidden {
+  display: none;
+}
+
+.navigationButton {
+  position: absolute;
+  top: 41px;
+}
+
+.nextButton {
+  right: 10px;
+}
+
+.previousButton {
+  left: 40px;
+  transform: translateX(-50%);
+}
