@@ -11,17 +11,17 @@ import styles from './classes.module.scss'
 import 'swiper/css'
 import 'swiper/swiper-bundle.css'
 import 'swiper/css/pagination'
+import useMediaQuery from '../hooks/useMediaQuery'
 
 export default function OnlyDates() {
   const [periodIndex, setPeriodIndex] = useState(0)
   const [dates, setDates] = useState<PeriodDate[]>(periods[periodIndex].dates)
 
-  const nextButtonRef = useRef(null)
-  const previousButtonRef = useRef(null)
+  const isMobile = useMediaQuery()
 
   return (
     <Container>
-      <Circle numberOfCircles={6} />
+      <Circle numberOfCircles={5} />
       <div
         style={{
           position: 'relative',
@@ -35,7 +35,6 @@ export default function OnlyDates() {
             styles.navigationButton,
             styles.previousButton,
           )}
-          ref={previousButtonRef}
           src='/assets/icons/previous.svg'
           alt='previous-button'
         />
@@ -45,7 +44,6 @@ export default function OnlyDates() {
             styles.navigationButton,
             styles.nextButton,
           )}
-          ref={nextButtonRef}
           src='/assets/icons/next.svg'
           alt='next-button'
         />
@@ -57,15 +55,10 @@ export default function OnlyDates() {
             nextEl: '.next-button',
             prevEl: '.previous-button',
           }}
-          pagination
+          // pagination
           slidesPerView='auto'
           spaceBetween={80}
           centeredSlides={false}
-          onSlideChange={() => console.log('slide change')}
-          onSwiper={() => console.log('124')}
-          onReachEnd={() => {
-            console.log('end')
-          }}
         >
           {dates.map((v, i) => (
             <SwiperSlide
@@ -74,7 +67,7 @@ export default function OnlyDates() {
                 display: 'flex',
                 flexDirection: 'column',
                 cursor: 'pointer',
-                maxWidth: 400,
+                maxWidth: 320,
                 gap: 15,
               }}
             >
