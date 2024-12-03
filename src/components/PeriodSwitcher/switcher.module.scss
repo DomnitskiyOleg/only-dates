@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 36.11vh;
+  padding-left: 80px;
+  margin-bottom: 56px;
+  align-items: start;
+  gap: 20px;
+
+  .counter {
+    font-family: 'PT Sans', sans-serif;
+    //  14px in figma 400 weight
+    font-weight: 600;
+    font-size: 18px;
+    color: #42567a;
+  }
+  .bottonContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 1px solid #42567a80;
+      cursor: pointer;
+    }
+  }
+}

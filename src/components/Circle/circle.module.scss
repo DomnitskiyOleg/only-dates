@@ -4,6 +4,9 @@
   top: 44.4444vh;
   transform: translate(-50%, -50%);
   z-index: 99;
+  font-size: 20px;
+  line-height: 30px;
+  color: #42567a;
 
   .outerCircle {
     position: relative;
@@ -27,6 +30,7 @@
     transition: transform 1s ease;
 
     .smallCircleVisible {
+      position: relative;
       display: flex;
       width: 6px;
       height: 6px;
@@ -38,10 +42,18 @@
       overflow: hidden;
       .period {
         font-family: 'PT Sans', sans-serif;
-        font-size: 20px;
-        line-height: 30px;
-        color: #42567a;
       }
+    }
+
+    .label {
+      font-family: 'PT Sans', sans-serif;
+      position: absolute;
+      font-weight: 700;
+      top: 50%;
+      left: 76px;
+      transform: translateY(-50%);
+      transition: opacity 0.5s ease;
+      cursor: default;
     }
   }
 }
