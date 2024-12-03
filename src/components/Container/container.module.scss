@@ -1,14 +1,13 @@
 .square {
   display: flex;
-  flex-direction: column;
   position: relative;
-  // padding-left: 80px;
+  flex-direction: column;
   max-width: 1440px;
   margin-left: 16.6666vw;
   border: 1px solid #42567a33;
   border-top: none;
   border-bottom: none;
-  height: 100vh;
+  height: 100%;
 
   .line {
     position: absolute;
