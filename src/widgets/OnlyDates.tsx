@@ -2,16 +2,17 @@ import Circle from '../components/Circle'
 import Container from '../components/Container'
 import { periods } from '../mock-data'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination } from 'swiper/modules'
+import { Navigation, Pagination, EffectFade } from 'swiper/modules'
 import classNames from 'classnames'
 import { PeriodDate } from '../mock-data/types'
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
+import useMediaQuery from '../hooks/useMediaQuery'
 
 import styles from './classes.module.scss'
 import 'swiper/css'
 import 'swiper/swiper-bundle.css'
 import 'swiper/css/pagination'
-import useMediaQuery from '../hooks/useMediaQuery'
+import 'swiper/css/effect-fade'
 
 export default function OnlyDates() {
   const [periodIndex, setPeriodIndex] = useState(0)
@@ -19,9 +20,14 @@ export default function OnlyDates() {
 
   const isMobile = useMediaQuery()
 
+  const [activeIndex, setAcitveIndex] = useState(0)
+
+  const setIndex = useCallback((index: number) => {
+    setAcitveIndex(index)
+  }, [])
   return (
     <Container>
-      <Circle numberOfCircles={5} />
+      <Circle currentPeriodIndex={2} numberOfCircles={5} />
       <div
         style={{
           position: 'relative',
