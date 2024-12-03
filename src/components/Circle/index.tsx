@@ -10,9 +10,18 @@ const SMALL_CIRCLE_RADIUS = 28
 type Props = {
   numberOfCircles: number
   currentPeriodIndex: number
+  previosPeriodIndex: number | null
+  setActivePeriodIndex: (v: number) => void
+  setPreviousPeriodIndex: (v: number) => void
 }
 export default function Circle(props: Props) {
-  const { numberOfCircles, currentPeriodIndex } = props
+  const {
+    numberOfCircles,
+    currentPeriodIndex,
+    previosPeriodIndex,
+    setActivePeriodIndex,
+    setPreviousPeriodIndex,
+  } = props
   const periodAngle = useMemo(() => {
     return 360 / numberOfCircles
   }, [numberOfCircles])
@@ -21,9 +30,8 @@ export default function Circle(props: Props) {
   const circleRef = useRef<HTMLDivElement>(null)
 
   const [lastRotationAngle, setLastRotationAngle] = useState(0)
-  const [activeIndex, setAcitveIndex] = useState(0)
 
-  const onMouseEnter = useCallback((index: number) => {
+  const openCircle = useCallback((index: number) => {
     gsap.to(elementsRef.current[index], {
       width: 56,
       height: 56,
@@ -33,7 +41,7 @@ export default function Circle(props: Props) {
     })
   }, [])
 
-  const onMouseLeave = useCallback((index: number) => {
+  const closeCircle = useCallback((index: number) => {
     gsap.to(elementsRef.current[index], {
       width: 6,
       height: 6,
@@ -46,17 +54,26 @@ export default function Circle(props: Props) {
   const onClick = useCallback(
     (newActiveIndex: number) => {
       if (!circleRef.current) return
-      const rotateAngle = (activeIndex - newActiveIndex) * periodAngle
 
-      onMouseLeave(activeIndex)
-      setAcitveIndex(newActiveIndex)
+      const rotateAngle = (currentPeriodIndex - newActiveIndex) * periodAngle
+
+      closeCircle(currentPeriodIndex)
+      setPreviousPeriodIndex(currentPeriodIndex)
+      setActivePeriodIndex(newActiveIndex)
       setLastRotationAngle(rotateAngle + lastRotationAngle)
 
       circleRef.current.style.transform = `rotate(${
         rotateAngle + lastRotationAngle
       }deg)`
     },
-    [activeIndex, periodAngle, lastRotationAngle, onMouseLeave],
+    [
+      currentPeriodIndex,
+      closeCircle,
+      lastRotationAngle,
+      periodAngle,
+      setActivePeriodIndex,
+      setPreviousPeriodIndex,
+    ],
   )
 
   const circles = Array.from({ length: numberOfCircles }, (_, i) => {
@@ -73,23 +90,21 @@ export default function Circle(props: Props) {
   })
 
   useEffect(() => {
-    console.log(currentPeriodIndex)
-    onMouseEnter(currentPeriodIndex)
-    onClick(currentPeriodIndex)
-  }, [currentPeriodIndex])
+    openCircle(currentPeriodIndex)
+  }, [currentPeriodIndex, openCircle, previosPeriodIndex])
 
   return (
     <div className={classes.container}>
       <div ref={circleRef} className={classes.outerCircle}>
         {circles.map((circle, index) => (
           <div
-            onMouseEnter={() => onMouseEnter(index)}
+            onMouseEnter={() => openCircle(index)}
             onMouseLeave={() => {
-              if (index === activeIndex) return
-              onMouseLeave(index)
+              if (index === currentPeriodIndex) return
+              closeCircle(index)
             }}
             onClick={() => {
-              if (index === activeIndex) return
+              if (index === currentPeriodIndex) return
               onClick(index)
             }}
             key={index}
