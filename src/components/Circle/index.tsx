@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { gsap } from 'gsap'
 import classes from './circle.module.scss'
 import { IPeriod } from '../../mock-data/types'

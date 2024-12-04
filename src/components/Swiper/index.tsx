@@ -5,7 +5,6 @@ import 'swiper/css'
 import 'swiper/swiper-bundle.css'
 import 'swiper/css/pagination'
 
-
 import { Navigation, Pagination } from 'swiper/modules'
 import { SwiperSlide, Swiper } from 'swiper/react'
 import classNames from 'classnames'
@@ -31,7 +30,7 @@ export default function DateSwiper(props: Props) {
         gsap.to(elementRef.current, {
           opacity: 1,
           delay: 0.4,
-          duration: 1,
+          duration: 0.6,
           ease: 'none',
         })
       },
