@@ -1,12 +1,19 @@
 .container {
   display: flex;
-  margin-top: 1;
-  padding-left: 80px;
+  align-items: center;
   line-height: 67.2px;
   font-weight: 700;
   color: #42567a;
-  margin-top: 6.778dvw;
+  margin-top: 8.854dvw;
+  gap: 76px;
 
+  .strip {
+    position: relative;
+    left: -1px;
+    background: linear-gradient(180deg, #3877ee, #ef5da8);
+    width: 5px;
+    height: 120px;
+  }
   h1 {
     font-family: 'PT Sans', sans-serif;
     font-size: 56px;
