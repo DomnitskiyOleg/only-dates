@@ -9,6 +9,10 @@
   border-bottom: none;
   height: 100%;
 
+  @media (max-width: 1400px) {
+    margin-left: 2vw;
+  }
+
   .line {
     position: absolute;
     background-color: #42567a33;
@@ -33,7 +37,5 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-
-    padding-top: 8.8541dvw;
   }
 }
