@@ -2,7 +2,7 @@ import classes from './switcher.module.scss'
 
 type Props = {
   switchToNextPeriod: () => void
-  switchToPreviosPeriod: () => void
+  switchToPreviousPeriod: () => void
   periodsAmount: number
   currentPeriod: number
 }
@@ -11,7 +11,7 @@ export default function PeriodSwitcher(props: Props) {
     currentPeriod,
     periodsAmount,
     switchToNextPeriod,
-    switchToPreviosPeriod,
+    switchToPreviousPeriod,
   } = props
   return (
     <div className={classes.container}>
@@ -19,7 +19,7 @@ export default function PeriodSwitcher(props: Props) {
         className={classes.counter}
       >{`${currentPeriod}/${periodsAmount}`}</span>
       <div className={classes.bottonContainer}>
-        <div onClickCapture={switchToPreviosPeriod} className={classes.button}>
+        <div onClickCapture={switchToPreviousPeriod} className={classes.button}>
           <img src='/assets/icons/previous-icon.svg' alt='previous-period' />
         </div>
         <div onClick={switchToNextPeriod} className={classes.button}>

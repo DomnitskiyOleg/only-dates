@@ -50,7 +50,7 @@ export default function OnlyDates() {
       />
       <PeriodSwitcher
         switchToNextPeriod={switchToNextPeriod}
-        switchToPreviosPeriod={switchToPreviosPeriod}
+        switchToPreviousPeriod={switchToPreviosPeriod}
         periodsAmount={periods.length}
         currentPeriod={periodIndex + 1}
       />
