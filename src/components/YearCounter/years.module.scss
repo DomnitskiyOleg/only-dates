@@ -1,0 +1,31 @@
+.positionBlock {
+  position: absolute;
+  left: 50%;
+  top: 44.4444vh;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+
+  .container {
+    padding-right: 16px;
+    position: absolute;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    gap: 66px;
+    .year {
+      font-size: 200px;
+      font-family: 'PT Sans', sans-serif;
+      font-weight: 700;
+      line-height: 160px;
+    }
+
+    .start {
+      color: #5d5fef;
+    }
+    .end {
+      color: #ef5da8;
+    }
+  }
+}
