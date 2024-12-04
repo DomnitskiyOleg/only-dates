@@ -1,13 +1,15 @@
-import Circle from '../components/Circle'
-import Container from '../components/Container'
 import { periods } from '../mock-data'
-import { PeriodDate } from '../mock-data/types'
+
 import { useCallback, useMemo, useState } from 'react'
 import useMediaQuery from '../hooks/useMediaQuery'
-
-import DateSwiper from '../components/Swiper'
-import PeriodSwitcher from '../components/PeriodSwitcher'
-import Title from '../components/Title'
+import {
+  Circle,
+  Container,
+  DateSwiper,
+  PeriodSwitcher,
+  Title,
+  YearCounter,
+} from '../components'
 
 export default function OnlyDates() {
   const isMobile = useMediaQuery()
@@ -19,6 +21,7 @@ export default function OnlyDates() {
   )
 
   const dates = useMemo(() => periods[periodIndex].dates, [periodIndex])
+  const activePeriod = useMemo(() => periods[periodIndex], [periodIndex])
 
   const switchToNextPeriod = useCallback(() => {
     if (!periods[periodIndex + 1]) setPeriodIndex(0)
@@ -41,6 +44,10 @@ export default function OnlyDates() {
   return (
     <Container>
       <Title />
+      <YearCounter
+        startYear={activePeriod.startYear}
+        endYear={activePeriod.endYear}
+      />
       <Circle
         periods={periods}
         setActivePeriodIndex={setActivePeriodIndex}
