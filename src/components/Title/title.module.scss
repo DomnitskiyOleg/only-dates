@@ -1,9 +1,28 @@
 .container {
   display: flex;
-  width: 353px;
-  font-family: 'PT Sans', sans-serif;
-  font-weight: 700;
-  font-size: 56px;
-  color: #42567a;
+  margin-top: 1;
   padding-left: 80px;
+  line-height: 67.2px;
+  font-weight: 700;
+  color: #42567a;
+  margin-top: 6.778dvw;
+
+  h1 {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 56px;
+    max-width: 353px;
+
+    @media (max-width: 1200px) {
+      font-size: 42px;
+      line-height: 54px;
+    }
+
+    // @media (max-width: 1700px) {
+    //   margin-top: 130px;
+    // }
+  }
+
+  // @media (max-width: 1700px) {
+  //   margin-top: 130px;
+  // }
 }
