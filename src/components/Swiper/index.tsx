@@ -1,5 +1,5 @@
 import { PeriodDate } from '../../mock-data/types'
-
+import { gsap } from 'gsap'
 import classes from './swiper.module.scss'
 import 'swiper/css'
 import 'swiper/swiper-bundle.css'
@@ -9,15 +9,36 @@ import 'swiper/css/effect-fade'
 import { Navigation, Pagination } from 'swiper/modules'
 import { SwiperSlide, Swiper } from 'swiper/react'
 import classNames from 'classnames'
+import { useEffect, useRef, useState } from 'react'
 
 type Props = {
   dates: PeriodDate[]
 }
 
 export default function DateSwiper(props: Props) {
+  const elementRef = useRef(null)
   const { dates } = props
+
+  const [datesToRender, setDatesToRender] = useState<PeriodDate[]>([])
+
+  useEffect(() => {
+    gsap.to(elementRef.current, {
+      opacity: 0,
+      duration: 0.5,
+      ease: 'none',
+      onComplete: () => {
+        setDatesToRender(dates)
+        gsap.to(elementRef.current, {
+          opacity: 1,
+          delay: 0.4,
+          duration: 1,
+          ease: 'none',
+        })
+      },
+    })
+  }, [dates])
   return (
-    <div className={classes.wrapper}>
+    <div ref={elementRef} className={classes.wrapper}>
       <Swiper
         modules={[Navigation, Pagination]}
         navigation={{
@@ -30,7 +51,7 @@ export default function DateSwiper(props: Props) {
         spaceBetween={80}
         centeredSlides={false}
       >
-        {dates.map((v, i) => (
+        {datesToRender.map((v, i) => (
           <SwiperSlide
             key={`${v.year}-${i}`}
             style={{
