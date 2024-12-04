@@ -5,7 +5,7 @@ export type PeriodDate = {
 
 export interface IPeriod {
   title: string
-  startDate: number
-  endDate: number
+  startYear: number
+  endYear: number
   dates: PeriodDate[]
 }

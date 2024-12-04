@@ -3,8 +3,8 @@ import { IPeriod } from './types'
 export const periods: IPeriod[] = [
   {
     title: 'Экономика',
-    startDate: 1920,
-    endDate: 1939,
+    startYear: 1920,
+    endYear: 1939,
     dates: [
       {
         year: 1920,
@@ -35,8 +35,8 @@ export const periods: IPeriod[] = [
   },
   {
     title: 'Наука',
-    startDate: 1945,
-    endDate: 1960,
+    startYear: 1945,
+    endYear: 1960,
     dates: [
       {
         year: 1947,
@@ -62,8 +62,8 @@ export const periods: IPeriod[] = [
   },
   {
     title: 'Космос',
-    startDate: 1960,
-    endDate: 1980,
+    startYear: 1960,
+    endYear: 1980,
     dates: [
       {
         year: 1961,
@@ -88,8 +88,8 @@ export const periods: IPeriod[] = [
   },
   {
     title: 'Технологии',
-    startDate: 1980,
-    endDate: 2000,
+    startYear: 1980,
+    endYear: 2000,
     dates: [
       {
         year: 1981,
@@ -115,8 +115,8 @@ export const periods: IPeriod[] = [
   },
   {
     title: 'Интернет',
-    startDate: 2000,
-    endDate: 2020,
+    startYear: 2000,
+    endYear: 2010,
     dates: [
       {
         year: 2001,
@@ -142,8 +142,8 @@ export const periods: IPeriod[] = [
   },
   {
     title: 'Спорт',
-    startDate: 2000,
-    endDate: 2020,
+    startYear: 2000,
+    endYear: 2020,
     dates: [
       {
         year: 2000,
