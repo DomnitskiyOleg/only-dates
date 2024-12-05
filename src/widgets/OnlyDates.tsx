@@ -14,24 +14,40 @@ import {
 export default function OnlyDates() {
   const isMobile = useMediaQuery()
 
-  const [periodIndex, setPeriodIndex] = useState<number>(0)
   const [activeIndex, setAcitveIndex] = useState(0)
+  const [isExternalRotation, setIsExternalRotation] = useState(true)
   const [previousActiveIndex, setPreviousActiveIndex] = useState<number | null>(
     null,
   )
 
-  const dates = useMemo(() => periods[periodIndex].dates, [periodIndex])
-  const activePeriod = useMemo(() => periods[periodIndex], [periodIndex])
+  const dates = useMemo(() => periods[activeIndex].dates, [activeIndex])
+  const activePeriod = useMemo(() => periods[activeIndex], [activeIndex])
+
+  const setExternalRotation = useCallback((value: boolean) => {
+    setIsExternalRotation(value)
+  }, [])
 
   const switchToNextPeriod = useCallback(() => {
-    if (!periods[periodIndex + 1]) setPeriodIndex(0)
-    setPeriodIndex((state) => state + 1)
-  }, [periodIndex])
+    setIsExternalRotation(true)
+
+    setPreviousActiveIndex(activeIndex)
+    if (!periods[activeIndex + 1]) {
+      setAcitveIndex(0)
+      return
+    }
+    setAcitveIndex((state) => state + 1)
+  }, [activeIndex])
 
   const switchToPreviosPeriod = useCallback(() => {
-    if (!periods[periodIndex - 1]) setPeriodIndex(periods.length)
-    setPeriodIndex((state) => state - 1)
-  }, [periodIndex])
+    setIsExternalRotation(true)
+
+    setPreviousActiveIndex(activeIndex)
+    if (!periods[activeIndex - 1]) {
+      setAcitveIndex(periods.length - 1)
+      return
+    }
+    setAcitveIndex((state) => state - 1)
+  }, [activeIndex])
 
   const setActivePeriodIndex = useCallback((index: number) => {
     setAcitveIndex(index)
@@ -54,12 +70,14 @@ export default function OnlyDates() {
         setPreviousPeriodIndex={setPreviousPeriodIndex}
         previosPeriodIndex={previousActiveIndex}
         currentPeriodIndex={activeIndex}
+        isExternalRotation={isExternalRotation}
+        setExternalRotation={setExternalRotation}
       />
       <PeriodSwitcher
         switchToNextPeriod={switchToNextPeriod}
         switchToPreviousPeriod={switchToPreviosPeriod}
         periodsAmount={periods.length}
-        currentPeriod={periodIndex + 1}
+        currentPeriod={activeIndex + 1}
       />
       <DateSwiper dates={dates} />
     </Container>

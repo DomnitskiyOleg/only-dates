@@ -1,5 +1,4 @@
 import {
-  ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -17,6 +16,8 @@ type Props = {
   previosPeriodIndex: number | null
   setActivePeriodIndex: (v: number) => void
   setPreviousPeriodIndex: (v: number) => void
+  setExternalRotation: (state: boolean) => void
+  isExternalRotation: boolean
 }
 
 export default function Circle(props: Props) {
@@ -26,6 +27,8 @@ export default function Circle(props: Props) {
     previosPeriodIndex,
     setActivePeriodIndex,
     setPreviousPeriodIndex,
+    isExternalRotation,
+    setExternalRotation,
   } = props
 
   const periodAngle = useMemo(() => {
@@ -76,36 +79,45 @@ export default function Circle(props: Props) {
     })
   }, [currentPeriodIndex])
 
-  const selectPeriod = useCallback(
-    (newActiveIndex: number) => {
+  const rotateToPeriod = useCallback(
+    (newActiveIndex: number, oldPeriodIndex: number) => {
       if (!mainCircleRef.current) return
 
-      const rotateAngle = (currentPeriodIndex - newActiveIndex) * periodAngle
+      const rotateAngle = (oldPeriodIndex - newActiveIndex) * periodAngle
 
-      closeCircle(currentPeriodIndex)
-      setPreviousPeriodIndex(currentPeriodIndex)
-      setActivePeriodIndex(newActiveIndex)
+      closeCircle(oldPeriodIndex)
       setLastRotationAngle(rotateAngle + lastRotationAngle)
-
       mainCircleRef.current.style.transform = `rotate(${
         rotateAngle + lastRotationAngle
       }deg)`
     },
-    [
-      currentPeriodIndex,
-      closeCircle,
-      lastRotationAngle,
-      periodAngle,
-      setActivePeriodIndex,
-      setPreviousPeriodIndex,
-    ],
+    [closeCircle, lastRotationAngle, periodAngle],
   )
+
+  const needToRotate =
+    typeof previosPeriodIndex === 'number' &&
+    isExternalRotation &&
+    currentPeriodIndex !== previosPeriodIndex
 
   useEffect(() => {
     openCircle(currentPeriodIndex)
     hidePreviousLabel()
     showLabel()
   }, [currentPeriodIndex, openCircle, hidePreviousLabel, showLabel])
+
+  useEffect(() => {
+    console.log()
+    if (needToRotate) {
+      setExternalRotation(false)
+      rotateToPeriod(currentPeriodIndex, previosPeriodIndex)
+    }
+  }, [
+    rotateToPeriod,
+    needToRotate,
+    currentPeriodIndex,
+    previosPeriodIndex,
+    setExternalRotation,
+  ])
 
   return (
     <div className={classes.container}>
@@ -122,7 +134,10 @@ export default function Circle(props: Props) {
               }}
               onClick={() => {
                 if (i === currentPeriodIndex) return
-                selectPeriod(i)
+                setExternalRotation(false)
+                rotateToPeriod(i, currentPeriodIndex)
+                setPreviousPeriodIndex(currentPeriodIndex)
+                setActivePeriodIndex(i)
               }}
               key={i}
               className={classes.smallCircleBase}
