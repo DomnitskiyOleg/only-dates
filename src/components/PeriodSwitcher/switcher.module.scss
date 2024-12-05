@@ -1,12 +1,11 @@
 .container {
   position: relative;
-  display: flex;
-  pointer-events: none;
   flex-direction: column;
+  align-items: start;
+  display: flex;
   margin-top: 36.11vh;
   padding-left: 80px;
-  margin-bottom: 56px;
-  align-items: start;
+  pointer-events: none;
   gap: 20px;
 
   @media (max-height: 1000px) {
@@ -29,6 +28,10 @@
     margin-top: 30dvw;
   }
 
+  @media (max-width: 1010px) {
+    margin-top: 15dvw;
+    padding: 0;
+  }
   .counter {
     font-family: 'PT Sans', sans-serif;
     //  14px in figma 400 weight
