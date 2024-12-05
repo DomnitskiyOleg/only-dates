@@ -13,6 +13,10 @@
     background: linear-gradient(180deg, #3877ee, #ef5da8);
     width: 5px;
     height: 120px;
+
+    @media (max-width: 1010px) {
+      display: none;
+    }
   }
   h1 {
     font-family: 'PT Sans', sans-serif;
@@ -24,6 +28,11 @@
       line-height: 54px;
     }
 
+    @media (max-width: 1010px) {
+      max-width: 132px;
+      font-size: 20px;
+      line-height: 24px;
+    }
     // @media (max-width: 1700px) {
     //   margin-top: 130px;
     // }
