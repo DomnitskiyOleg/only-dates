@@ -59,27 +59,40 @@ export default function OnlyDates() {
 
   return (
     <Container>
-      <Title />
-      <YearCounter
-        startYear={activePeriod.startYear}
-        endYear={activePeriod.endYear}
-      />
-      <Circle
-        periods={periods}
-        setActivePeriodIndex={setActivePeriodIndex}
-        setPreviousPeriodIndex={setPreviousPeriodIndex}
-        previosPeriodIndex={previousActiveIndex}
-        currentPeriodIndex={activeIndex}
-        isExternalRotation={isExternalRotation}
-        setExternalRotation={setExternalRotation}
-      />
-      <PeriodSwitcher
-        switchToNextPeriod={switchToNextPeriod}
-        switchToPreviousPeriod={switchToPreviosPeriod}
-        periodsAmount={periods.length}
-        currentPeriod={activeIndex + 1}
-      />
-      <DateSwiper dates={dates} />
+      <div>
+        <Title />
+        <YearCounter
+          startYear={activePeriod.startYear}
+          endYear={activePeriod.endYear}
+        />
+        <Circle
+          periods={periods}
+          setActivePeriodIndex={setActivePeriodIndex}
+          setPreviousPeriodIndex={setPreviousPeriodIndex}
+          previosPeriodIndex={previousActiveIndex}
+          currentPeriodIndex={activeIndex}
+          isExternalRotation={isExternalRotation}
+          setExternalRotation={setExternalRotation}
+        />
+        {isMobile && <DateSwiper dates={dates} />}
+        {!isMobile && (
+          <PeriodSwitcher
+            switchToNextPeriod={switchToNextPeriod}
+            switchToPreviousPeriod={switchToPreviosPeriod}
+            periodsAmount={periods.length}
+            currentPeriod={activeIndex + 1}
+          />
+        )}
+      </div>
+      {!isMobile && <DateSwiper dates={dates} />}
+      {isMobile && (
+        <PeriodSwitcher
+          switchToNextPeriod={switchToNextPeriod}
+          switchToPreviousPeriod={switchToPreviosPeriod}
+          periodsAmount={periods.length}
+          currentPeriod={activeIndex + 1}
+        />
+      )}
     </Container>
   )
 }
