@@ -4,7 +4,8 @@ function App() {
   return (
     <>
       <OnlyDates />
-      {/* <OnlyDates /> */}
+      {/* testing 2 same widgets */}
+      {/* <OnlyDates />  */}
     </>
   )
 }
