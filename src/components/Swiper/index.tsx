@@ -9,16 +9,21 @@ import { Navigation, Pagination } from 'swiper/modules'
 import { SwiperSlide, Swiper } from 'swiper/react'
 import classNames from 'classnames'
 import { useEffect, useRef, useState } from 'react'
+import Divider from '../Divider'
+import useMediaQuery from '../../hooks'
 
 type Props = {
   dates: PeriodDate[]
+  title?: string
 }
 
 export default function DateSwiper(props: Props) {
   const elementRef = useRef(null)
-  const { dates } = props
-
+  
+  const { dates, title } = props
+  const isMobile = useMediaQuery()
   const [datesToRender, setDatesToRender] = useState<PeriodDate[]>([])
+  const [titleToRender, settitleToRender] = useState('')
 
   useEffect(() => {
     gsap.to(elementRef.current, {
@@ -27,18 +32,35 @@ export default function DateSwiper(props: Props) {
       ease: 'none',
       onComplete: () => {
         setDatesToRender(dates)
+        settitleToRender(title || '')
         gsap.to(elementRef.current, {
           opacity: 1,
           delay: 0.4,
-          duration: 0.6,
+          duration: 0.8,
           ease: 'none',
+          onStart: () => {
+            if (!isMobile) return
+            gsap.fromTo(
+              elementRef.current,
+              { y: 40 },
+              { y: 0, duration: 0.5, ease: 'power2.out' },
+            )
+          },
         })
       },
     })
-  }, [dates])
+  }, [dates, isMobile, title])
+  
   return (
     <div ref={elementRef} className={classes.wrapper}>
+      {isMobile && (
+        <>
+          <h2 className={classes.title}>{titleToRender}</h2>
+          <Divider />
+        </>
+      )}
       <Swiper
+        style={{ minHeight: isMobile ? 122 : 132 }}
         modules={[Navigation, Pagination]}
         navigation={{
           disabledClass: classes.navigationHidden,
@@ -53,13 +75,8 @@ export default function DateSwiper(props: Props) {
         {datesToRender.map((v, i) => (
           <SwiperSlide
             key={`${v.year}-${i}`}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              cursor: 'pointer',
-              maxWidth: 320,
-              gap: 15,
-            }}
+            className={classes.slide}
+            style={{ maxWidth: isMobile ? 166 : 320 }}
           >
             <p className={classes.year}>{v.year}</p>
             <p className={classes.description}>{v.eventDescription}</p>
