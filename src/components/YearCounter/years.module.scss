@@ -9,6 +9,9 @@
   }
 
   .container {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 7px;
     @media (min-width: 1010px) {
       padding-right: 16px;
       position: absolute;
@@ -20,7 +23,7 @@
     }
     .year {
       font-size: 56px;
-      line-height: 1;
+      line-height: 72.5px;
 
       @media (min-width: 1010px) {
         font-size: 200px;

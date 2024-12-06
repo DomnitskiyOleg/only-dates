@@ -9,24 +9,37 @@ type Props = {
 }
 export default function YearCounter(props: Props) {
   const { startYear, endYear } = props
-  const [startDate, setStartDate] = useState(1000)
-  const [endDate, setEndDate] = useState(1000)
+  const [startDate, setStartDate] = useState(0)
+  const [endDate, setEndDate] = useState(0)
 
   useEffect(() => {
-    const startValues = {
-      start: startDate,
-      end: endDate,
+    const start = {
+      value: startDate,
     }
-    gsap.to(startValues, {
-      start: startYear,
-      end: endYear,
-      ease: 'none',
+
+    const end = {
+      value: endDate,
+    }
+
+    gsap.to(start, {
+      value: startYear,
+      duration: 0.1,
+      ease: 'power1.inOut',
       onUpdate: () => {
-        setStartDate(Math.floor(startValues.start))
-        setEndDate(Math.floor(startValues.end))
+        setStartDate(Math.floor(start.value))
+      },
+    })
+
+    gsap.to(end, {
+      value: endYear,
+      duration: 0.1,
+      ease: 'power1.inOut',
+      onUpdate: () => {
+        setEndDate(Math.floor(end.value))
       },
     })
   }, [startYear, endYear, endDate, startDate])
+
   return (
     <div className={classes.positionBlock}>
       <div className={classes.test} />
