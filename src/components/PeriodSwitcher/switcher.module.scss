@@ -6,6 +6,8 @@
   margin-top: 36.11vh;
   padding-left: 80px;
   pointer-events: none;
+  gap: 20px;
+
   @media (max-width: 1010px) {
     gap: 10.64px;
   }
@@ -44,8 +46,6 @@
       font-size: 14px;
       font-weight: 400;
     }
-
-
   }
   .bottonContainer {
     display: flex;
