@@ -1,70 +1,82 @@
-.wrapper {
+.container {
   position: relative;
-  padding-left: 80px;
-  padding-right: 80px;
 
-  @media (max-width: 1010px) {
-    padding: 0;
-  }
-  .slide {
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    gap: 15px;
-  }
-  .title {
-    font-size: 18px;
-    font-weight: 500;
-    color: #42567a;
-    min-height: 25px;
-  }
-  .description {
-    font-size: 20px;
-    font-family: 'PT Sans', sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    line-height: 30px;
-
-    @media (max-width: 1010px) {
-      font-size: 14px;
-      line-height: 21px;
-    }
-  }
-
-  .year {
-    color: #3877ee;
-    font-size: 25px;
-    font-family: 'Bebas Neue', sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    line-height: 30px;
-
-    @media (max-width: 1010px) {
-      font-size: 16px;
-      line-height: 19px;
-    }
-  }
-
-  .navigationHidden {
-    display: none;
-  }
-
-  .navigationButton {
+  .customPagination {
     position: absolute;
-    // shadow layout height (from figma): 15px
-    top: 36px;
+    bottom: -110px !important;
+    left: 0 !important;
+    display: flex;
+    justify-content: center;
+  }
+
+  .wrapper {
+    position: relative;
+    padding-left: 80px;
+    padding-right: 80px;
 
     @media (max-width: 1010px) {
+      padding: 0;
+    }
+    .slide {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 15px;
+    }
+    .title {
+      font-size: 18px;
+      font-weight: 500;
+      color: #42567a;
+      min-height: 25px;
+    }
+    .description {
+      font-size: 20px;
+      font-family: 'PT Sans', sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      line-height: 30px;
+
+      @media (max-width: 1010px) {
+        font-size: 14px;
+        line-height: 21px;
+      }
+    }
+
+    .year {
+      color: #3877ee;
+      font-size: 25px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      line-height: 30px;
+
+      @media (max-width: 1010px) {
+        font-size: 16px;
+        line-height: 19px;
+      }
+    }
+
+    .navigationHidden {
       display: none;
     }
-  }
 
-  .nextButton {
-    right: 10px;
-  }
+    .navigationButton {
+      position: absolute;
+      // shadow layout height (from figma): 15px
+      top: 36px;
 
-  .previousButton {
-    left: 40px;
-    transform: translateX(-50%);
+      @media (max-width: 1010px) {
+        display: none;
+      }
+    }
+
+    .nextButton {
+      right: 10px;
+    }
+
+    .previousButton {
+      left: 40px;
+      transform: translateX(-50%);
+    }
   }
 }
