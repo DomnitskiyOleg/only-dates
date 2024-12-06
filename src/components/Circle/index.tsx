@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import classes from './circle.module.scss'
 import { IPeriod } from '../../mock-data/types'
@@ -86,12 +80,14 @@ export default function Circle(props: Props) {
       const rotateAngle = (oldPeriodIndex - newActiveIndex) * periodAngle
 
       closeCircle(oldPeriodIndex)
+
+      hidePreviousLabel()
       setLastRotationAngle(rotateAngle + lastRotationAngle)
       mainCircleRef.current.style.transform = `rotate(${
         rotateAngle + lastRotationAngle
       }deg)`
     },
-    [closeCircle, lastRotationAngle, periodAngle],
+    [closeCircle, lastRotationAngle, periodAngle, hidePreviousLabel],
   )
 
   const needToRotate =
@@ -101,12 +97,11 @@ export default function Circle(props: Props) {
 
   useEffect(() => {
     openCircle(currentPeriodIndex)
-    hidePreviousLabel()
+    // hidePreviousLabel()
     showLabel()
   }, [currentPeriodIndex, openCircle, hidePreviousLabel, showLabel])
 
   useEffect(() => {
-    console.log()
     if (needToRotate) {
       setExternalRotation(false)
       rotateToPeriod(currentPeriodIndex, previosPeriodIndex)
