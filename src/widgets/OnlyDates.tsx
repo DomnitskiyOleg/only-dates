@@ -6,6 +6,7 @@ import {
   Circle,
   Container,
   DateSwiper,
+  MobileWrapper,
   PeriodSwitcher,
   Title,
   YearCounter,
@@ -29,7 +30,6 @@ export default function OnlyDates() {
 
   const switchToNextPeriod = useCallback(() => {
     setIsExternalRotation(true)
-
     setPreviousActiveIndex(activeIndex)
     if (!periods[activeIndex + 1]) {
       setAcitveIndex(0)
@@ -40,7 +40,6 @@ export default function OnlyDates() {
 
   const switchToPreviosPeriod = useCallback(() => {
     setIsExternalRotation(true)
-
     setPreviousActiveIndex(activeIndex)
     if (!periods[activeIndex - 1]) {
       setAcitveIndex(periods.length - 1)
@@ -52,19 +51,19 @@ export default function OnlyDates() {
   const setActivePeriodIndex = useCallback((index: number) => {
     setAcitveIndex(index)
   }, [])
-
   const setPreviousPeriodIndex = useCallback((index: number) => {
     setPreviousActiveIndex(index)
   }, [])
 
   return (
     <Container>
-      <div>
+      <MobileWrapper>
         <Title />
         <YearCounter
           startYear={activePeriod.startYear}
           endYear={activePeriod.endYear}
         />
+
         <Circle
           periods={periods}
           setActivePeriodIndex={setActivePeriodIndex}
@@ -74,7 +73,7 @@ export default function OnlyDates() {
           isExternalRotation={isExternalRotation}
           setExternalRotation={setExternalRotation}
         />
-        {isMobile && <DateSwiper dates={dates} />}
+        {isMobile && <DateSwiper title={activePeriod.title} dates={dates} />}
         {!isMobile && (
           <PeriodSwitcher
             switchToNextPeriod={switchToNextPeriod}
@@ -83,7 +82,7 @@ export default function OnlyDates() {
             currentPeriod={activeIndex + 1}
           />
         )}
-      </div>
+      </MobileWrapper>
       {!isMobile && <DateSwiper dates={dates} />}
       {isMobile && (
         <PeriodSwitcher
