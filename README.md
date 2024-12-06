@@ -24,7 +24,7 @@ yarn
 use npm ?
 
 ```
-npm ci
+npm install
 ```
 
 ### To start
