@@ -14,7 +14,7 @@ import {
 
 export default function OnlyDates() {
   const isMobile = useMediaQuery()
-
+  const [isActionsBlocked, setIsActionBlocked] = useState(false)
   const [activeIndex, setAcitveIndex] = useState(0)
   const [isExternalRotation, setIsExternalRotation] = useState(true)
   const [previousActiveIndex, setPreviousActiveIndex] = useState<number | null>(
@@ -29,6 +29,9 @@ export default function OnlyDates() {
   }, [])
 
   const switchToNextPeriod = useCallback(() => {
+    if (isActionsBlocked) return
+    setIsActionBlocked(true)
+
     setIsExternalRotation(true)
     setPreviousActiveIndex(activeIndex)
     if (!periods[activeIndex + 1]) {
@@ -36,9 +39,12 @@ export default function OnlyDates() {
       return
     }
     setAcitveIndex((state) => state + 1)
-  }, [activeIndex])
+  }, [activeIndex, isActionsBlocked])
 
   const switchToPreviosPeriod = useCallback(() => {
+    if (isActionsBlocked) return
+    setIsActionBlocked(true)
+
     setIsExternalRotation(true)
     setPreviousActiveIndex(activeIndex)
     if (!periods[activeIndex - 1]) {
@@ -46,7 +52,7 @@ export default function OnlyDates() {
       return
     }
     setAcitveIndex((state) => state - 1)
-  }, [activeIndex])
+  }, [activeIndex, isActionsBlocked])
 
   const setActivePeriodIndex = useCallback((index: number) => {
     setAcitveIndex(index)
@@ -72,6 +78,9 @@ export default function OnlyDates() {
           currentPeriodIndex={activeIndex}
           isExternalRotation={isExternalRotation}
           setExternalRotation={setExternalRotation}
+          setActionBlock={(value) => {
+            setIsActionBlocked(value)
+          }}
         />
         {isMobile && <DateSwiper title={activePeriod.title} dates={dates} />}
         {!isMobile && (

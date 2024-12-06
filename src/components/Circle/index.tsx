@@ -12,6 +12,7 @@ type Props = {
   setPreviousPeriodIndex: (v: number) => void
   setExternalRotation: (state: boolean) => void
   isExternalRotation: boolean
+  setActionBlock: (state: boolean) => void
 }
 
 export default function Circle(props: Props) {
@@ -23,6 +24,7 @@ export default function Circle(props: Props) {
     setPreviousPeriodIndex,
     isExternalRotation,
     setExternalRotation,
+    setActionBlock,
   } = props
 
   const periodAngle = useMemo(() => {
@@ -55,23 +57,28 @@ export default function Circle(props: Props) {
     })
   }, [])
 
-  const hidePreviousLabel = useCallback(() => {
-    if (typeof previosPeriodIndex !== 'number') return
-    gsap.to(labelsRef.current[previosPeriodIndex], {
+  const hidePreviousLabel = useCallback((t: number) => {
+    gsap.to(labelsRef.current[t], {
       opacity: 0,
       duration: 0.2,
       ease: 'none',
     })
-  }, [previosPeriodIndex])
+  }, [])
 
-  const showLabel = useCallback(() => {
-    gsap.to(labelsRef.current[currentPeriodIndex], {
-      opacity: 1,
-      duration: 0.1,
-      delay: 0.9,
-      ease: 'none',
-    })
-  }, [currentPeriodIndex])
+  const showLabel = useCallback(
+    (t: number) => {
+      gsap.to(labelsRef.current[t], {
+        opacity: 1,
+        duration: 0.1,
+        delay: 0.9,
+        ease: 'none',
+        onComplete: () => {
+          setActionBlock(false)
+        },
+      })
+    },
+    [setActionBlock],
+  )
 
   const rotateToPeriod = useCallback(
     (newActiveIndex: number, oldPeriodIndex: number) => {
@@ -81,13 +88,14 @@ export default function Circle(props: Props) {
 
       closeCircle(oldPeriodIndex)
 
-      hidePreviousLabel()
+      hidePreviousLabel(oldPeriodIndex)
+      showLabel(newActiveIndex)
       setLastRotationAngle(rotateAngle + lastRotationAngle)
       mainCircleRef.current.style.transform = `rotate(${
         rotateAngle + lastRotationAngle
       }deg)`
     },
-    [closeCircle, lastRotationAngle, periodAngle, hidePreviousLabel],
+    [closeCircle, lastRotationAngle, periodAngle, hidePreviousLabel, showLabel],
   )
 
   const needToRotate =
@@ -97,9 +105,7 @@ export default function Circle(props: Props) {
 
   useEffect(() => {
     openCircle(currentPeriodIndex)
-    // hidePreviousLabel()
-    showLabel()
-  }, [currentPeriodIndex, openCircle, hidePreviousLabel, showLabel])
+  }, [currentPeriodIndex, openCircle])
 
   useEffect(() => {
     if (needToRotate) {
