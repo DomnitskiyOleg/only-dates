@@ -6,8 +6,9 @@
   margin-top: 36.11vh;
   padding-left: 80px;
   pointer-events: none;
-  gap: 20px;
-
+  @media (max-width: 1010px) {
+    gap: 10.64px;
+  }
   @media (max-height: 1000px) {
     margin-top: 15dvw;
   }
@@ -29,7 +30,7 @@
   }
 
   @media (max-width: 1010px) {
-    margin-top: 15dvw;
+    margin-top: 13.7323dvh;
     padding: 0;
   }
   .counter {
@@ -38,6 +39,13 @@
     font-weight: 600;
     font-size: 18px;
     color: #42567a;
+
+    @media (max-width: 1010px) {
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+
   }
   .bottonContainer {
     display: flex;
@@ -45,6 +53,10 @@
     align-items: center;
     gap: 20px;
     pointer-events: all;
+
+    @media (max-width: 1010px) {
+      gap: 8px;
+    }
 
     .button {
       display: flex;
@@ -55,6 +67,11 @@
       border-radius: 50%;
       border: 1px solid #0e378380;
       cursor: pointer;
+
+      @media (max-width: 1010px) {
+        width: 20px;
+        height: 20px;
+      }
 
       &:hover {
         background-color: #ffff;

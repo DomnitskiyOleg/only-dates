@@ -1,3 +1,4 @@
+import useMediaQuery from '../../hooks'
 import classes from './switcher.module.scss'
 
 type Props = {
@@ -13,6 +14,9 @@ export default function PeriodSwitcher(props: Props) {
     switchToNextPeriod,
     switchToPreviousPeriod,
   } = props
+
+  const isMobile = useMediaQuery()
+
   return (
     <div className={classes.container}>
       <span
@@ -20,10 +24,18 @@ export default function PeriodSwitcher(props: Props) {
       >{`${currentPeriod}/${periodsAmount}`}</span>
       <div className={classes.bottonContainer}>
         <div onClickCapture={switchToPreviousPeriod} className={classes.button}>
-          <img src='/assets/icons/previous-icon.svg' alt='previous-period' />
+          <img
+            className={classes.icon}
+            src={`/assets/icons/previous-icon${isMobile ? '-xs' : ''}.svg`}
+            alt='previous-period'
+          />
         </div>
         <div onClick={switchToNextPeriod} className={classes.button}>
-          <img src='/assets/icons/next-icon.svg' alt='next-period' />
+          <img
+            className={classes.icon}
+            src={`/assets/icons/next-icon${isMobile ? '-xs' : ''}.svg`}
+            alt='next-period'
+          />
         </div>
       </div>
     </div>
