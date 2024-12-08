@@ -57,8 +57,8 @@ export default function Circle(props: Props) {
     })
   }, [])
 
-  const hidePreviousLabel = useCallback((t: number) => {
-    gsap.to(labelsRef.current[t], {
+  const hidePreviousLabel = useCallback((index: number) => {
+    gsap.to(labelsRef.current[index], {
       opacity: 0,
       duration: 0.2,
       ease: 'none',
@@ -66,8 +66,8 @@ export default function Circle(props: Props) {
   }, [])
 
   const showLabel = useCallback(
-    (t: number) => {
-      gsap.to(labelsRef.current[t], {
+    (index: number) => {
+      gsap.to(labelsRef.current[index], {
         opacity: 1,
         duration: 0.1,
         delay: 0.9,
@@ -87,7 +87,6 @@ export default function Circle(props: Props) {
       const rotateAngle = (oldPeriodIndex - newActiveIndex) * periodAngle
 
       closeCircle(oldPeriodIndex)
-
       hidePreviousLabel(oldPeriodIndex)
       showLabel(newActiveIndex)
       setLastRotationAngle(rotateAngle + lastRotationAngle)
@@ -103,11 +102,26 @@ export default function Circle(props: Props) {
     isExternalRotation &&
     currentPeriodIndex !== previosPeriodIndex
 
-  useEffect(() => {
-    openCircle(currentPeriodIndex)
-  }, [currentPeriodIndex, openCircle])
+  const onCircleClick = useCallback(
+    (index: number) => () => {
+      if (index === currentPeriodIndex) return
+
+      setExternalRotation(false)
+      rotateToPeriod(index, currentPeriodIndex)
+      setPreviousPeriodIndex(currentPeriodIndex)
+      setActivePeriodIndex(index)
+    },
+    [
+      currentPeriodIndex,
+      setExternalRotation,
+      rotateToPeriod,
+      setPreviousPeriodIndex,
+      setActivePeriodIndex,
+    ],
+  )
 
   useEffect(() => {
+    openCircle(currentPeriodIndex)
     if (needToRotate) {
       setExternalRotation(false)
       rotateToPeriod(currentPeriodIndex, previosPeriodIndex)
@@ -118,6 +132,7 @@ export default function Circle(props: Props) {
     currentPeriodIndex,
     previosPeriodIndex,
     setExternalRotation,
+    openCircle,
   ])
 
   return (
@@ -133,13 +148,7 @@ export default function Circle(props: Props) {
                 if (i === currentPeriodIndex) return
                 closeCircle(i)
               }}
-              onClick={() => {
-                if (i === currentPeriodIndex) return
-                setExternalRotation(false)
-                rotateToPeriod(i, currentPeriodIndex)
-                setPreviousPeriodIndex(currentPeriodIndex)
-                setActivePeriodIndex(i)
-              }}
+              onClick={onCircleClick(i)}
               key={i}
               className={classes.smallCircleBase}
               style={{
