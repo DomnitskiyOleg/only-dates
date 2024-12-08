@@ -20,7 +20,7 @@
     .slide {
       display: flex;
       flex-direction: column;
-      cursor: pointer;
+      cursor: grab;
       gap: 15px;
     }
     .title {
@@ -65,6 +65,7 @@
       position: absolute;
       // shadow layout height (from figma): 15px
       top: 36px;
+      cursor: pointer;
 
       @media (max-width: 1010px) {
         display: none;
